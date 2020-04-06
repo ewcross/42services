@@ -1,0 +1,5 @@
+brew:
+	- kubectl
+	- docker
+	- minikube
+	- hyperkit
