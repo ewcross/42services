@@ -1,0 +1,8 @@
+version: "3.7"
+services:
+  nginx-server:
+    image: nginx-server:v1
+    build: services/nginx/
+  dummy-server:
+    image: dummy:v1
+    build: dummy/nginx/

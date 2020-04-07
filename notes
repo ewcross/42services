@@ -8,7 +8,9 @@ kubernetes:
 			- hyperkit
 
 	- made hyperkit default minkube driver with - 'minikube config set driver hyperkit'
-	- pointed docker to the docker daemon inside minikube VM - 'minikube docker-env' and then
+	- pointed docker to the docker daemon inside minikube VM - 'minikube docker-env' and run last line
+
+	- to get a shell to a container in a pod - 'kubectl exec -it <pod> -c <container> -- /bin/sh'
 
 nginx:
 

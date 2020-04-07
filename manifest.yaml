@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ft-services
+  labels:
+    app: services
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+            app: services
+  template:
+    metadata:
+      labels:
+        app: services
+    spec:
+      containers:
+
+        - image: nginx-server:v1
+          name: nginx-server
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 80
+            - containerPort: 443
+
+        - image: dummy:v1
+          name: dummy-server
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
