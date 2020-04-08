@@ -15,10 +15,10 @@ eval $(minikube docker-env)
 #run 'docker-compose build' to build all containers (uses docker-compose.yml in current directory) 
 
 #create deployment
-kubectl create -f manifest.yaml
+#kubectl create -f manifest.yaml
 
 #expose single deployment - use LoadBalancer to assign fixed external IP to service
-kubectl expose deployment <deployment_name> --type=LoadBalancer --port=<port>
+#kubectl expose deployment <deployment_name> --type=LoadBalancer --port=<port>
 
 #need to create a deployment which specifies all containers (built from docker-compose)
 #then need to start services from this deployment

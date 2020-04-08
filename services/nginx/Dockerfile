@@ -12,9 +12,9 @@ COPY index.html /www/
 EXPOSE 80
 EXPOSE 443
 
-COPY nginx_setup.sh .
+COPY nginx_init.sh .
 
 # to reload or stop nginx - '/usr/sbin/nginx -s <reload or stop>'
 
 #ENTRYPOINT nginx && sh -c tail -f /dev/null
-ENTRYPOINT sh nginx_setup.sh
+ENTRYPOINT sh nginx_init.sh

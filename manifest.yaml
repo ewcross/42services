@@ -23,8 +23,6 @@ spec:
             - containerPort: 80
             - containerPort: 443
 
-        - image: dummy:v1
-          name: dummy-server
+        - image: mysql-server:v1
+          name: mysql-server
           imagePullPolicy: Never
-          ports:
-            - containerPort: 8080

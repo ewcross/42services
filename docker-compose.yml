@@ -3,6 +3,6 @@ services:
   nginx-server:
     image: nginx-server:v1
     build: services/nginx/
-  dummy-server:
-    image: dummy:v1
-    build: dummy/nginx/
+  mysql-server:
+    image: mysql-server:v1
+    build: services/mysql/
