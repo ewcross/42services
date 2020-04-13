@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  labels:
+    tier: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: nginx
+        tier: backend
+    spec:
+      volumes:
+      - name: code
+        persistentVolumeClaim:
+          claimName: code
+      - name: config
+        configMap:
+          name: nginx-config
+          items:
+          - key: config
+            path: nginx.conf
+      containers:
+      - name: nginx
+        image: nginx:v1
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: code
+          mountPath: /code
+        - name: config                  #this should be put into etc/nginx directory as nginx.conf
+          mountPath: /etc/nginx
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/sh", "-c", "cp index.html /code"]

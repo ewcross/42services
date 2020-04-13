@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wp
+  labels:
+    tier: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wp
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: wp
+        tier: backend
+    spec:
+      volumes:
+      - name: code
+        persistentVolumeClaim:
+          claimName: code
+      containers:
+      - name: wp
+        image: wp:v1
+        ports:
+        - containerPort: 9000
+        volumeMounts:
+        - name: code
+          mountPath: /code
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/sh", "-c", "cp -r wordpress /code", "&&", "cp index.php /code"]

@@ -14,10 +14,18 @@ spec:
       labels:
         app: services
     spec:
+      
+      volumes:
+        - name: vol
+          emptyDir: {}
+
       containers:
 
         - image: nginx-server:v1
           name: nginx-server
+          volumeMounts:
+            - name: vol
+              mountPath: /www_test/
           imagePullPolicy: Never
           ports:
             - containerPort: 80
@@ -25,4 +33,11 @@ spec:
 
         - image: mysql-server:v1
           name: mysql-server
+          imagePullPolicy: Never
+        
+        - image: test:v1
+          name: test
+          volumeMounts:
+            - name: vol
+              mountPath: /hello/
           imagePullPolicy: Never
