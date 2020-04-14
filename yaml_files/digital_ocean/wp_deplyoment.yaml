@@ -17,18 +17,18 @@ spec:
         tier: backend
     spec:
       volumes:
-      - name: code
+      - name: wp_files
         persistentVolumeClaim:
-          claimName: code
+          claimName: shared-files
       containers:
       - name: wp
         image: wp:v1
         ports:
         - containerPort: 9000
         volumeMounts:
-        - name: code
-          mountPath: /code
+        - name: wp_files
+          mountPath: /wp_files
         lifecycle:
           postStart:
             exec:
-              command: ["/bin/sh", "-c", "cp -r wordpress /code", "&&", "cp index.php /code"]
+              command: ["/bin/sh", "-c", "cp -r wordpress /wp_files", "&&", "cp index.php /wp_files"]

@@ -17,26 +17,18 @@ spec:
         tier: backend
     spec:
       volumes:
-      - name: code
+      - name: www
         persistentVolumeClaim:
-          claimName: code
-      - name: config
-        configMap:
-          name: nginx-config
-          items:
-          - key: config
-            path: nginx.conf
+          claimName: shared-files
       containers:
       - name: nginx
         image: nginx:v1
         ports:
         - containerPort: 80
         volumeMounts:
-        - name: code
-          mountPath: /code
-        - name: config                  #this should be put into etc/nginx directory as nginx.conf
-          mountPath: /etc/nginx
+        - name: www
+          mountPath: /www
         lifecycle:
           postStart:
             exec:
-              command: ["/bin/sh", "-c", "cp index.html /code"]
+              command: ["/bin/sh", "-c", "cp index.html /www"]
