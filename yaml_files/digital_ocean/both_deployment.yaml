@@ -1,32 +1,45 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: wp
+  name: both
   labels:
     tier: backend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: wp
+      app: nginx
       tier: backend
   template:
     metadata:
       labels:
-        app: wp
+        app: nginx
         tier: backend
     spec:
       volumes:
-      - name: wp-files
+      - name: shared-files
         persistentVolumeClaim:
           claimName: shared-files
+
       containers:
+      - name: nginx
+        image: nginx:v1
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: shared-files
+          mountPath: /www
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/sh", "-c", "cp index.html /www"]
+
       - name: wp
         image: wp:v1
         ports:
         - containerPort: 9000
         volumeMounts:
-        - name: wp-files
+        - name: shared-files
           mountPath: /wp_files
         lifecycle:
           postStart:
