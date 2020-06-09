@@ -16,7 +16,7 @@ nginx:
 
 	- to start server - 'nginx'
 	- to reload or stop - 'usr/sbin/nginx -s reload'
-	- could make a user 'www' and use this, but seems that don't have top
+	- could make a user 'www' and use this, but seems that don't have too
 	- the file etc/nginx/nginx.conf is read first, and by default redirects to conf.d/*.conf
 	  for hosts
 	- can either change this nginx.conf file to have server settings, or change those inside conf.d

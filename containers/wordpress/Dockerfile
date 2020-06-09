@@ -12,8 +12,6 @@ RUN tar -xzvf latest.tar.gz
 RUN rm latest.tar.gz
 COPY wp-config.php /wordpress
 COPY index.php .
-#these wordpress files are then moved into the volume used as nginx root in the 
-#the deployment yaml file, as is index.php
 
 COPY wp_init.sh .
 
