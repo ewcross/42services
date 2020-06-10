@@ -26,11 +26,11 @@ spec:
         - containerPort: 3306
         env:
         - name: DB_NAME
-          value: wp_db
+          value: wordpress_db
         - name: DB_USER
-          value: root
+          value: wordpress_user
         - name: MYSQL_ROOT_PASSWORD
-          value: password
+          value: wordpress
         volumeMounts:
         - name: mysql-storage
           mountPath: /var/lib/mysql
@@ -48,4 +48,4 @@ spec:
   ports:
     - name: mysql
       port: 3306
-      targetPort: 3306
+      #targetPort: 3306

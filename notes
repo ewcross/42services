@@ -11,6 +11,7 @@ kubernetes:
 	- pointed docker to the docker daemon inside minikube VM - 'minikube docker-env' and run last line
 
 	- to get a shell to a container in a pod - 'kubectl exec -it <pod> -c <container> -- /bin/sh'
+	- SELECT * FROM mysql.db WHERE Db = '<database name in LC>'\G;
 
 nginx:
 
