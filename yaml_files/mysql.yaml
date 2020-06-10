@@ -24,6 +24,11 @@ spec:
         imagePullPolicy: Never
         ports:
         - containerPort: 3306
+        env:
+        - name: DB_USER
+          value: root
+        - name: DB_PASSWORD
+          value: password
         volumeMounts:
         - name: mysql-storage
           mountPath: /storage
@@ -41,4 +46,4 @@ spec:
   ports:
     - name: mysql
       port: 3306
-      #nodePort: 3306
+      targetPort: 3306

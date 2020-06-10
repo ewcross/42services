@@ -23,7 +23,15 @@ spec:
         image: wp:v1
         imagePullPolicy: Never
         ports:
-        - containerPort: 9000
+        - containerPort: 80
+          name: wp
+        env:
+        - name: WP_DB_USER
+          value: root
+        - name: WP_DB_PASSWORD
+          value: password
+        - name: WP_DB_HOST
+          value: mysql
         volumeMounts:
         - name: wp-storage
           mountPath: /wp_files
@@ -38,9 +46,8 @@ spec:
   type: NodePort
   selector:
     app: wp
-    tier: backend
   ports:
     - name: wp
       protocol: TCP
       port: 5050
-      #nodePort: 5050
+      targetPort: 80

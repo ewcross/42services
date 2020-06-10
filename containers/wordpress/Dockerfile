@@ -20,4 +20,3 @@ COPY init.sh .
 EXPOSE 80
 
 ENTRYPOINT sh init.sh
-#ENTRYPOINT lighttpd -D -f /etc/lighttpd/lighttpd.conf
