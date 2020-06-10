@@ -26,6 +26,8 @@ spec:
         - containerPort: 80
           name: wp
         env:
+        - name: WP_DB_NAME
+          value: wp_db
         - name: WP_DB_USER
           value: root
         - name: WP_DB_PASSWORD

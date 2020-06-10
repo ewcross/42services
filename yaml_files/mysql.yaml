@@ -25,13 +25,15 @@ spec:
         ports:
         - containerPort: 3306
         env:
+        - name: DB_NAME
+          value: wp_db
         - name: DB_USER
           value: root
-        - name: DB_PASSWORD
+        - name: MYSQL_ROOT_PASSWORD
           value: password
         volumeMounts:
         - name: mysql-storage
-          mountPath: /storage
+          mountPath: /var/lib/mysql
 ---
 apiVersion: v1
 kind: Service
