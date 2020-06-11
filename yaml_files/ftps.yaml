@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ftps
+  labels:
+    app: ftps
+spec:
+  selector:
+    matchLabels:
+            app: ftps
+  template:
+    metadata:
+      labels:
+        app: ftps
+    spec:
+      containers:
+      - name: ftps
+        image: ftps:v1
+        imagePullPolicy: Never
+        env:
+        - name: FTPS_USER
+          value: ftps_user
+        - name: FTPS_PASSWORD
+          value: ftps_user
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ftps
+  labels:
+    app: ftps
+spec:
+  type: NodePort
+  selector:
+    app: ftps
+  ports:
+    - name: default
+      port: 21          #port number within cluster
+      targetPort: 21
+    - name: other
+      port: 21000       #port number within cluster
+      targetPort: 21000
