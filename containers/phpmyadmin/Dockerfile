@@ -12,8 +12,6 @@ RUN rm *tar.gz
 RUN mkdir -p /var/www && mv phpMyAdmin* /var/www/phpmyadmin
 COPY config.inc.php /var/www/phpmyadmin
 RUN rm /var/www/phpmyadmin/config.sample.inc.php
-RUN mkdir -p /var/www/phpmyadmin/tmp
-RUN chmod 777 /var/www/phpmyadmin/tmp
 
 EXPOSE 5000
 

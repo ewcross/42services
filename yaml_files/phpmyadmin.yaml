@@ -28,6 +28,8 @@ spec:
           value: "3306"
         - name: PMA_USER
           value: root
+        - name: MYSQL_ROOT_PASSWORD
+          value: wordpress
 ---
 apiVersion: v1
 kind: Service

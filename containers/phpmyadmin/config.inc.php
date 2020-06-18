@@ -9,7 +9,7 @@
  *
  * @package PhpMyAdmin
  */
-declare(strict_types=1);
+#declare(strict_types=1);
 
 /**
  * This is needed for cookie based authentication to encrypt password in
@@ -28,16 +28,19 @@ $i = 0;
 $i++;
 /* Authentication type */
 $cfg['Servers'][$i]['auth_type'] = 'cookie';
-#$cfg['Servers'][$i]['auth_type'] = 'config';
 /* Server parameters */
-$cfg['Servers'][$i]['host'] = 'mysql';
-$cfg['Servers'][$i]['port'] = '32703';
-$cfg['Servers'][$i]['connect_type'] = 'tcp';
+#$cfg['Servers'][$i]['host'] = 'mysql';
+$cfg['Servers'][$i]['host'] = getenv(PMA_HOST);
+#$cfg['Servers'][$i]['port'] = "3306";
+$cfg['Servers'][$i]['port'] = getenv(PMA_PORT);
+#$cfg['Servers'][$i]['user'] = 'root';
+$cfg['Servers'][$i]['user'] = getenv(PMA_USER);
+#$cfg['Servers'][$i]['password'] = 'wordpress';
+$cfg['Servers'][$i]['password'] = getenv(MYSQL_ROOT_PASSWORD);
+#$cfg['Servers'][$i]['connect_type'] = 'tcp';
 $cfg['Servers'][$i]['compress'] = false;
 $cfg['Servers'][$i]['AllowNoPassword'] = true;
-$cfg['Servers'][$i]['extension'] = 'mysqli';
-$cfg['Servers'][$i]['user'] = 'wordpress_db';
-$cfg['Servers'][$i]['password'] = 'wordpress';
+#$cfg['Servers'][$i]['extension'] = 'mysqli';
 
 /**
  * phpMyAdmin configuration storage settings.
@@ -154,8 +157,6 @@ $cfg['SaveDir'] = '';
  * default = 'ask'
  */
 //$cfg['SendErrorReports'] = 'always';
-
-$cfg[‘TempDir’] = ‘tmp’;
 
 /**
  * You can find more configuration options in the documentation
