@@ -17,6 +17,11 @@ spec:
       - name: nginx
         image: nginx:v1
         imagePullPolicy: Never
+        env:
+        - name: SSH_USER
+          value: user
+        - name: SSH_PASSWORD
+          value: password
 ---
 apiVersion: v1
 kind: Service
