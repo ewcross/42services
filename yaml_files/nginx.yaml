@@ -17,6 +17,13 @@ spec:
       - name: nginx
         image: nginx:v1
         imagePullPolicy: Never
+        ports:
+        - name: http
+          containerPort: 80
+        - name: https
+          containerPort: 443
+        - name: ssh
+          containerPort: 22
         env:
         - name: SSH_USER
           value: user
@@ -30,16 +37,19 @@ metadata:
   labels:
     app: nginx
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: nginx
   ports:
     - name: http
-      port: 80          #port number within cluster
-      #targetPort: 80
+      port: 80        #port number within cluster
+      protocol: TCP
+      targetPort: 80
     - name: https
       port: 443         #port number within cluster
-      #targetPort: 443
+      protocol: TCP
+      targetPort: 443
     - name: ssh
       port: 22          #port number within cluster
-      #targetPort: 22
+      protocol: TCP
+      targetPort: 22

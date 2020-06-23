@@ -18,8 +18,15 @@ spec:
       - name: telegraf
         image: telegraf:v1
         imagePullPolicy: Never
-        ports:
-        - containerPort: 4999
+        #ports:
+        #- containerPort: 4999
+        volumeMounts:
+        - name: docker-daemon
+          mountPath: "/var/run/docker.sock"
+      volumes:
+      - name: docker-daemon
+        hostPath:
+          path: /var/run/docker.sock
 ---
 apiVersion: v1
 kind: Service
@@ -31,7 +38,7 @@ spec:
   type: NodePort
   selector:
     app: telegraf
-  ports:
-  - protocol: TCP
-    port: 4999
-    targetPort: 4999
+    #ports:
+    #- protocol: TCP
+    #port: 4999
+    #targetPort: 4999
