@@ -12,7 +12,6 @@ mysql -e "GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'%' IDENTIFIED BY '$M
 echo 'flushing privileges'
 mysql -e "FLUSH PRIVILEGES"
 
-echo 'looping'
 while : ;
 do sleep 1;
 done
