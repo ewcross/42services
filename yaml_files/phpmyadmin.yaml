@@ -37,8 +37,11 @@ metadata:
   name: php
   labels:
     app: php
+  annotations:
+    metallb.universe.tf/allow-shared-ip: abcd
 spec:
   type: LoadBalancer
+  loadBalancerIP: MIN_IP  
   selector:
     app: php
   ports:

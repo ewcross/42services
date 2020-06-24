@@ -34,8 +34,11 @@ metadata:
   name: telegraf
   labels:
     app: telegraf
+  annotations:
+    metallb.universe.tf/allow-shared-ip: abcd
 spec:
-  type: NodePort
+  type: LoadBalancer
+  loadBalancerIP: MIN_IP  
   selector:
     app: telegraf
     #ports:
