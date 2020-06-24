@@ -6,5 +6,3 @@ datasources:
   access: proxy
   isDefault: true
   database: telegraf
-  #user: root
-  #password: password

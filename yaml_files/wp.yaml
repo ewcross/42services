@@ -45,7 +45,7 @@ metadata:
   labels:
     app: wp
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: wp
   ports:
