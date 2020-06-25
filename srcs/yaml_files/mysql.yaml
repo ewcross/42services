@@ -42,10 +42,8 @@ metadata:
   labels:
     app: mysql
 spec:
-  type: LoadBalancer
   selector:
     app: mysql
   ports:
     - name: mysql
       port: 3306
-      targetPort: 3306

@@ -31,8 +31,12 @@ do
 	sed -i '' "s/MIN_IP/${metallb_min_ip}/g" $f
 done
 
+# add same ip to index.html for nginx to serve
+sed -i '' "s/MIN_IP/${metallb_min_ip}/g" srcs/containers/nginx/index.html
 # add same ip to nginx.conf to give 301 redirection the correct address
 sed -i '' "s/MIN_IP/${metallb_min_ip}/g" srcs/containers/nginx/nginx.conf
+# add same ip to lighttpd index.html for link to wordpress
+sed -i '' "s/MIN_IP/${metallb_min_ip}/g" srcs/containers/wordpress/index.html
 
 # if minikube needs to be restarted put back placeholders in yaml files
 #sed -i '' "s/${metallb_min_ip}/MIN_IP/g" yaml_files/metallb.yaml
@@ -44,4 +48,6 @@ sed -i '' "s/MIN_IP/${metallb_min_ip}/g" srcs/containers/nginx/nginx.conf
 #	fi
 #	sed -i '' "s/${metallb_min_ip}/MIN_IP/g" $f
 #done
+#sed -i '' "s/${metallb_min_ip}/MIN_IP/g" srcs/containers/nginx/index.html
 #sed -i '' "s/${metallb_min_ip}/MIN_IP/g" srcs/containers/nginx/nginx.conf
+#sed -i '' "s/${metallb_min_ip}/MIN_IP/g" srcs/containers/wordpress/index.html

@@ -3,3 +3,4 @@ brew:
 	- docker
 	- minikube
 	- hyperkit
+	- python pillow stuff

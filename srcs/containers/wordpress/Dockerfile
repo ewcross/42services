@@ -14,6 +14,8 @@ RUN tar -xzvf latest.tar.gz && rm latest.tar.gz
 RUN rm wordpress/wp-config-sample.php
 COPY wp-config.php wordpress/
 RUN mv wordpress /var/www/localhost/htdocs/wordpress
+COPY index.html /var/www/localhost/htdocs/
+RUN chown -R lighttpd /var/www/localhost/htdocs/
 
 COPY init.sh .
 

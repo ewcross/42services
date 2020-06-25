@@ -36,11 +36,8 @@ metadata:
   labels:
     app: influxdb
 spec:
-  type: LoadBalancer
   selector:
     app: influxdb
   ports:
-    - name: influxdb
-      port: 8086
-      targetPort: 8086
-      #nodePort: 30086
+  - name: influxdb
+    port: 8086
