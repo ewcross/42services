@@ -26,21 +26,15 @@ $i = 0;
  * First server
  */
 $i++;
-/* Authentication type */
-$cfg['Servers'][$i]['auth_type'] = 'cookie';
-/* Server parameters */
-#$cfg['Servers'][$i]['host'] = 'mysql';
-$cfg['Servers'][$i]['host'] = getenv(PMA_HOST);
-#$cfg['Servers'][$i]['port'] = "3306";
-$cfg['Servers'][$i]['port'] = getenv(PMA_PORT);
-#$cfg['Servers'][$i]['user'] = 'root';
-$cfg['Servers'][$i]['user'] = getenv(PMA_USER);
-#$cfg['Servers'][$i]['password'] = 'wordpress';
-$cfg['Servers'][$i]['password'] = getenv(MYSQL_ROOT_PASSWORD);
-#$cfg['Servers'][$i]['connect_type'] = 'tcp';
-$cfg['Servers'][$i]['compress'] = false;
-$cfg['Servers'][$i]['AllowNoPassword'] = true;
-#$cfg['Servers'][$i]['extension'] = 'mysqli';
+$cfg['Servers'][$i]['host']          = 'DB_HOST';
+$cfg['Servers'][$i]['port']          = 'DB_PORT';
+$cfg['Servers'][$i]['socket']        = '';
+$cfg['Servers'][$i]['connect_type']  = 'tcp';
+$cfg['Servers'][$i]['extension']     = 'mysql';
+$cfg['Servers'][$i]['compress']      = FALSE;
+$cfg['Servers'][$i]['auth_type']     = 'config';
+$cfg['Servers'][$i]['user']          = 'DB_USER';
+$cfg['Servers'][$i]['password']      = 'DB_PASSWORD';
 
 /**
  * phpMyAdmin configuration storage settings.

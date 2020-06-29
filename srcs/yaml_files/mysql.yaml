@@ -29,7 +29,7 @@ spec:
           value: wordpress_db
         - name: DB_USER
           value: wordpress_user
-        - name: MYSQL_ROOT_PASSWORD
+        - name: DB_PASSWORD
           value: wordpress
         volumeMounts:
         - name: mysql-storage

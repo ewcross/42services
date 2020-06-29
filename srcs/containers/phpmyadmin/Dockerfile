@@ -12,7 +12,8 @@ RUN rm *tar.gz
 RUN mkdir -p /var/www && mv phpMyAdmin* /var/www/phpmyadmin
 COPY config.inc.php /var/www/phpmyadmin
 RUN rm /var/www/phpmyadmin/config.sample.inc.php
+COPY configure_db.sh .
 
 EXPOSE 5000
 
-ENTRYPOINT php -S 0.0.0.0:5000 -t /var/www/
+ENTRYPOINT sh configure_db.sh && php -S 0.0.0.0:5000 -t /var/www/phpmyadmin/

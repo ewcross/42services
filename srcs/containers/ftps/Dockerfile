@@ -10,5 +10,8 @@ EXPOSE 21000
 
 COPY setup.sh .
 
-ENTRYPOINT sh setup.sh && pure-ftpd -Y2 -P __MINIKUBE_IP__
+COPY loop.sh .
+#ENTRYPOINT sh loop.sh
+
+ENTRYPOINT sh setup.sh && pure-ftpd -Y2 -p 21000:21000 -P 192.168.64.23
 #ENTRYPOINT sh setup.sh && pure-ftpd -j -Y 2 -p 21000:21000 -P MINIKUBE_IP
