@@ -21,8 +21,8 @@ nums=$(echo $minikube_ip | tr "." "\n")
 arr=($nums)
 metallb_min_ip="${arr[0]}.${arr[1]}.${arr[2]}.$((${arr[3]} + 5))"
 metallb_max_ip="${arr[0]}.${arr[1]}.${arr[2]}.$((${arr[3]} + 20))"
-sed -i '' "s/MIN_IP/${metallb_min_ip}/g" srcs/yaml_files/metallb.yaml
-sed -i '' "s/MAX_IP/${metallb_max_ip}/g" srcs/yaml_files/metallb.yaml
+#sed -i '' "s/MIN_IP/${metallb_min_ip}/g" srcs/yaml_files/metallb.yaml
+#sed -i '' "s/MAX_IP/${metallb_max_ip}/g" srcs/yaml_files/metallb.yaml
 
 # put lowest ip in all yaml files so all services share same ip
 for f in srcs/yaml_files/*
@@ -32,6 +32,10 @@ do
 	fi
 	sed -i '' "s/MIN_IP/${metallb_min_ip}/g" $f
 done
+sed -i '' "s/MAX_IP/${metallb_max_ip}/g" srcs/yaml_files/metallb.yaml
+
+# apply metallb yaml file to finish ingress setup
+kubectl apply -f srcs/yaml_files/metallb.yaml
 
 # add same ip to index.html for nginx to serve
 sed -i '' "s/MIN_IP/${metallb_min_ip}/g" srcs/containers/nginx/index.html
@@ -41,8 +45,6 @@ sed -i '' "s/MIN_IP/${metallb_min_ip}/g" srcs/containers/nginx/nginx.conf
 sed -i '' "s/MIN_IP/${metallb_min_ip}/g" srcs/containers/wordpress/index.html
 
 # if minikube needs to be restarted put back placeholders in yaml files
-#sed -i '' "s/${metallb_min_ip}/MIN_IP/g" srcs/yaml_files/metallb.yaml
-#sed -i '' "s/${metallb_max_ip}/MAX_IP/g" srcs/yaml_files/metallb.yaml
 #for f in srcs/yaml_files/*
 #do
 #	if [ -d "$f" ]; then
@@ -50,6 +52,7 @@ sed -i '' "s/MIN_IP/${metallb_min_ip}/g" srcs/containers/wordpress/index.html
 #	fi
 #	sed -i '' "s/${metallb_min_ip}/MIN_IP/g" $f
 #done
+#sed -i '' "s/${metallb_max_ip}/MAX_IP/g" srcs/yaml_files/metallb.yaml
 #sed -i '' "s/${metallb_min_ip}/MIN_IP/g" srcs/containers/nginx/index.html
 #sed -i '' "s/${metallb_min_ip}/MIN_IP/g" srcs/containers/nginx/nginx.conf
 #sed -i '' "s/${metallb_min_ip}/MIN_IP/g" srcs/containers/wordpress/index.html
