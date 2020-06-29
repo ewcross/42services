@@ -1,5 +1,7 @@
 #!bin/bash
 
+minikube start
+
 # point this shell to minikube docker-daemon
 eval $(minikube docker-env)
 
@@ -39,9 +41,9 @@ sed -i '' "s/MIN_IP/${metallb_min_ip}/g" srcs/containers/nginx/nginx.conf
 sed -i '' "s/MIN_IP/${metallb_min_ip}/g" srcs/containers/wordpress/index.html
 
 # if minikube needs to be restarted put back placeholders in yaml files
-#sed -i '' "s/${metallb_min_ip}/MIN_IP/g" yaml_files/metallb.yaml
-#sed -i '' "s/${metallb_max_ip}/MAX_IP/g" yaml_files/metallb.yaml
-#for f in yaml_files/*
+#sed -i '' "s/${metallb_min_ip}/MIN_IP/g" srcs/yaml_files/metallb.yaml
+#sed -i '' "s/${metallb_max_ip}/MAX_IP/g" srcs/yaml_files/metallb.yaml
+#for f in srcs/yaml_files/*
 #do
 #	if [ -d "$f" ]; then
 #		continue
