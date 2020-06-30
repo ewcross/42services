@@ -7,6 +7,7 @@ A kubernetes cluster consisting of multiple services, each running in a dedicate
 Kubernetes is run using Minikube inside the Hyperkit hypervisor on MacOS.
 
 All docker containers are running Alpine Linux.
+
 External acces to the cluster's services is managed by the MetalLB load balancer.
 
 The services included are:
