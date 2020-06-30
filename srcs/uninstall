@@ -4,3 +4,4 @@ brew:
 	- minikube
 	- hyperkit
 	- python pillow stuff
+	- poppler (brew uninstall)
