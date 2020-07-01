@@ -9,5 +9,6 @@ openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 chmod 600 /etc/ssl/private/*.pem
 
 #add new user using environment variables from ftps.yaml
-adduser -D "$FTPS_USER"
+adduser -D -h /home/$FTPS_USER "$FTPS_USER"
 echo "$FTPS_USER:$FTPS_PASSWORD" | chpasswd
+touch /home/$FTPS_USER/test_file

@@ -38,8 +38,8 @@ spec:
     app: ftps
   ports:
     - name: default
-      port: 21          #port number within cluster
+      port: 21
       targetPort: 21
-    - name: other
-      port: 21000       #port number within cluster
+    - name: data-port
+      port: 21000
       targetPort: 21000
