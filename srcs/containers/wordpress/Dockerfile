@@ -17,6 +17,9 @@ RUN mv wordpress /var/www/localhost/htdocs/wordpress
 COPY index.html /var/www/localhost/htdocs/
 RUN chown -R lighttpd /var/www/localhost/htdocs/
 
+# this file contains code for adding worpdress users (see init.sh)
+COPY add_functions.php .
+
 COPY init.sh .
 
 EXPOSE 80

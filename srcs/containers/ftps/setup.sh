@@ -12,3 +12,7 @@ chmod 600 /etc/ssl/private/*.pem
 adduser -D -h /home/$FTPS_USER "$FTPS_USER"
 echo "$FTPS_USER:$FTPS_PASSWORD" | chpasswd
 touch /home/$FTPS_USER/test_file
+
+# start pure-ftpd server, -Y2 to only accept TLS, -p sets additional ports
+# allowed for file transfer, -P sets IP address for response to PASV command
+pure-ftpd -Y2 -p 21000:21000 -P $IP

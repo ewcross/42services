@@ -10,4 +10,5 @@ EXPOSE 21000
 
 COPY setup.sh .
 
-ENTRYPOINT sh setup.sh && pure-ftpd -Y2 -p 21000:21000 -P 192.168.64.24
+ENTRYPOINT sh setup.sh
+#ENTRYPOINT sh setup.sh && pure-ftpd -Y2 -p 21000:21000 -P 192.168.64.24

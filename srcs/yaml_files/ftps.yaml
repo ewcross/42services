@@ -22,6 +22,8 @@ spec:
           value: ftps_user
         - name: FTPS_PASSWORD
           value: ftps_user
+        - name: IP
+          value: '192.168.64.24'
 ---
 apiVersion: v1
 kind: Service

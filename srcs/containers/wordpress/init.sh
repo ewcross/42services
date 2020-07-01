@@ -9,6 +9,9 @@ sed -i 's/WP_DB_USER/'$WP_DB_USER'/g' /var/www/localhost/htdocs/wordpress/wp-con
 sed -i 's/WP_DB_PASSWORD/'$WP_DB_PASSWORD'/g' /var/www/localhost/htdocs/wordpress/wp-config.php
 sed -i 's/WP_DB_HOST/'$WP_DB_HOST'/g' /var/www/localhost/htdocs/wordpress/wp-config.php
 
+# add code to end of functions.php to create admin user and multiple editors
+cat add_functions.php >> /var/www/localhost/htdocs/wordpress/wp-content/themes/twentytwenty/functions.php
+
 openrc
 touch /run/openrc/softlevel
 rc-update add lighttpd default
