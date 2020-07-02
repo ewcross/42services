@@ -37,11 +37,10 @@ metadata:
   annotations:
     metallb.universe.tf/allow-shared-ip: abcd
 spec:
-  type: LoadBalancer
-  loadBalancerIP: 192.168.64.24  
+  #type: LoadBalancer
+  #loadBalancerIP: MIN_IP  
   selector:
     app: telegraf
-    #ports:
-    #- protocol: TCP
-    #port: 4999
-    #targetPort: 4999
+  ports:
+  - port: 4999
+  #targetPort: 4999

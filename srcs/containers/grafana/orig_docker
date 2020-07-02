@@ -1,0 +1,17 @@
+FROM alpine:latest
+
+RUN apk update && \
+    apk add vim --no-cache && \
+    apk add grafana --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --allow-untrusted --no-cache
+
+RUN mkdir -p /etc/grafana/provisioning/dashboards/
+
+COPY datasources.yaml /usr/share/grafana/conf/provisioning/datasources/
+COPY dashboard.yaml /usr/share/grafana/conf/provisioning/dashboards/all.yaml
+RUN rm /usr/share/grafana/conf/provisioning/dashboards/sample.yaml
+COPY dashboard.json /etc/grafana/provisioning/dashboards/
+COPY dashboard.json /usr/share/grafana/conf/provisioning/dashboards/
+
+EXPOSE 3000
+
+ENTRYPOINT cd /usr/share/grafana && /usr/sbin/grafana-server

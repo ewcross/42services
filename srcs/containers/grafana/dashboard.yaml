@@ -1,0 +1,11 @@
+apiVersion: 1
+
+providers:
+- name: 'my dashboard'
+  orgId: 1
+  folder: ''
+  type: file
+  disableDeletion: False
+  editable: true
+  options:
+    path: /usr/share/grafana/conf/provisioning/dashboards
