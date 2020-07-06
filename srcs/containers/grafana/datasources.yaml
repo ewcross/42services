@@ -3,6 +3,7 @@ datasources:
 - name: InfluxDooBie
   type: influxdb
   url: http://influxdb:8086
+  orgId: 1
   access: proxy
   isDefault: true
   database: telegraf

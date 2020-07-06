@@ -1,16 +1,19 @@
 #!bin/bash
 
+echo "\033[1;35mStarting minikube...\n"
 minikube start
 
 # point this shell to minikube docker-daemon
 eval $(minikube docker-env)
 
 # edit kube-proxy config settings for metallb
+echo "\033[1;35mConfiguring kube-proxy settings for MetalLB...\n"
 kubectl get configmap kube-proxy -n kube-system -o yaml | \
 sed -e "s/strictARP: false/strictARP: true/" | \
 kubectl apply -f - -n kube-system
 
 # install metallb for ingress
+echo "\033[1;35mInstalling MetalLB...\n"
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/namespace.yaml
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/metallb.yaml
 kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
@@ -34,15 +37,33 @@ do
 done
 sed -i '' "s/MAX_IP/${metallb_max_ip}/g" srcs/yaml_files/metallb.yaml
 
-# apply metallb yaml file to finish ingress setup
-kubectl apply -f srcs/yaml_files/metallb.yaml
-
 # add same ip to index.html for nginx to serve
 sed -i '' "s/MIN_IP/${metallb_min_ip}/g" srcs/containers/nginx/index.html
 # add same ip to nginx.conf to give 301 redirection the correct address
 sed -i '' "s/MIN_IP/${metallb_min_ip}/g" srcs/containers/nginx/nginx.conf
 # add same ip to lighttpd index.html for link to wordpress
 sed -i '' "s/MIN_IP/${metallb_min_ip}/g" srcs/containers/wordpress/index.html
+
+# apply metallb yaml - can remove this later
+kubectl apply -f srcs/yaml_files/metallb.yaml
+
+# build all docker images
+
+# go through all directory in containers directory and build
+# and image with each as root - with tag <dir_name>:v1
+# need to go through and change all wp to wordpress
+
+# apply yaml files
+#for f in srcs/yaml_files/*
+#do
+#	if [ -d "$f" ]; then
+#		for pv in srcs/yaml_files/$f/*
+#		do
+#			kubectl apply -f $pv
+#		done
+#	fi
+#	kubectl apply -f $f
+#done
 
 # if minikube needs to be restarted put back placeholders in yaml files
 #for f in srcs/yaml_files/*

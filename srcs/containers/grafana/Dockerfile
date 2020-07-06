@@ -1,16 +1,16 @@
 FROM alpine:latest
 
 RUN apk update && \
-    apk add vim --no-cache
+    apk add vim --no-cache && \
+    apk add grafana --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --allow-untrusted --no-cache
 
-RUN wget https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana-5.0.0.linux-x64.tar.gz
-RUN tar -zxvf grafana-5.0.0.linux-x64.tar.gz
+COPY datasources.yaml /usr/share/grafana/conf/provisioning/datasources/
+COPY dashboard.yaml /usr/share/grafana/conf/provisioning/dashboards/
+RUN rm /usr/share/grafana/conf/provisioning/datasources/sample.yaml
+RUN rm /usr/share/grafana/conf/provisioning/dashboards/sample.yaml
 
-COPY datasources.yaml .
-COPY dashboard.yaml .
-COPY dashboard.json .
+COPY dashboard.json /usr/share/grafana/conf/provisioning/dashboards/
 
 EXPOSE 3000
 
-ENTRYPOINT bin/sh
-#ENTRYPOINT cd /usr/share/grafana && /usr/sbin/grafana-server
+ENTRYPOINT cd /usr/share/grafana && /usr/sbin/grafana-server
