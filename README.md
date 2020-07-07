@@ -24,7 +24,7 @@ The container metrics displayed in the Grafana platform are collected using Tele
 
 ## Usage
 
-Setup of the cluster is all handled by the ```setup.sh``` script. Simply run this script to launch the cluster: (```./setup.sh```). This script is specifically for setup on MacOS.
+Setup of the cluster is all handled by the ```setup.sh``` script. Simply run this script to launch the cluster (```./setup.sh```). This script is specifically for setup on MacOS.
 
 ## Resources
 
