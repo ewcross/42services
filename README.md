@@ -12,7 +12,7 @@ External acces to the cluster's services is managed by the MetalLB load balancer
 
 The services included are:
 
-  * Nginx server (ports 80, 443 (SSL) and 22 (SSH))
+  * Nginx server (ports 80, 443 (SSL) and 22 (SSH)) - port 80 systematically redirects to port 443.
   * FTPS server (port 21)
   * Wordpress website (port 5050)
   * Phpmyadmin (port 5000)
