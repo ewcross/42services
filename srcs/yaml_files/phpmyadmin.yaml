@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: php
+  name: phpmyadmin
   labels:
-    app: php
+    app: phpmyadmin
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: php
+      app: phpmyadmin
   template:
     metadata:
       labels:
-        app: php
+        app: phpmyadmin
     spec:
       volumes:
       containers:
-      - name: php
-        image: php:v1
+      - name: phpmyadmin
+        image: phpmyadmin:v1
         imagePullPolicy: Never
         ports:
         - containerPort: 5000
@@ -34,17 +34,17 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: php
+  name: phpmyadmin
   labels:
-    app: php
+    app: phpmyadmin
   annotations:
     metallb.universe.tf/allow-shared-ip: abcd
 spec:
   type: LoadBalancer
   loadBalancerIP: MIN_IP  
   selector:
-    app: php
+    app: phpmyadmin
   ports:
-    - name: php
+    - name: phpmyadmin
       port: 5000
       targetPort: 5000

@@ -1,16 +1,7 @@
 FROM alpine:latest
 
 RUN apk update && \
-    apk add vim && \
     apk add openssl openssh nginx --no-cache
-
-# download and set up telegraf
-RUN wget https://dl.influxdata.com/telegraf/releases/telegraf-1.13.3-static_linux_amd64.tar.gz
-RUN tar -xvf telegraf-1.13.3-static_linux_amd64.tar.gz
-RUN rm -rf telegraf-1*
-RUN mkdir -p /etc/telegraf/
-RUN chmod +x telegraf/*
-COPY telegraf.conf /etc/telegraf/telegraf.conf
 
 # create directories for nginx and add config files
 RUN mkdir -p /run/nginx
@@ -40,7 +31,4 @@ EXPOSE 80
 EXPOSE 443
 EXPOSE 22
 
-ENTRYPOINT /usr/sbin/sshd && sh ./add_user.sh && nginx && /telegraf/telegraf
-
-#COPY loop.sh .
-#ENTRYPOINT /usr/sbin/sshd && sh ./add_user.sh && nginx && sh loop.sh
+ENTRYPOINT /usr/sbin/sshd && sh add_user.sh && nginx -g "daemon off;"

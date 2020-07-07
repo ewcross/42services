@@ -1,7 +1,6 @@
 FROM alpine:latest
 
-RUN apk update && \
-    apk add vim --no-cache
+RUN apk update
 
 RUN wget https://dl.influxdata.com/telegraf/releases/telegraf-1.13.3-static_linux_amd64.tar.gz
 RUN tar -xvf telegraf-1.13.3-static_linux_amd64.tar.gz

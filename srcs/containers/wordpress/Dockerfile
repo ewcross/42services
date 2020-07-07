@@ -1,7 +1,6 @@
 FROM alpine:latest
 
 RUN apk update \
-    && apk add vim \
     && apk add openrc \
     && apk add lighttpd php7-common php7-iconv php7-json php7-gd \
     php7-curl php7-xml php7-mysqli php7-imap php7-cgi fcgi php7-pdo \

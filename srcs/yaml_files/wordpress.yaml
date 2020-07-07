@@ -1,30 +1,30 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: wp
+  name: wordpress
   labels:
-    app: wp
+    app: wordpress
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: wp
+      app: wordpress
   template:
     metadata:
       labels:
-        app: wp
+        app: wordpress
     spec:
       volumes:
-      - name: wp-storage
+      - name: wordpress-storage
         persistentVolumeClaim:
-          claimName: wp-pvc
+          claimName: wordpress-pvc
       containers:
-      - name: wp
-        image: wp:v1
+      - name: wordpress
+        image: wordpress:v1
         imagePullPolicy: Never
         ports:
         - containerPort: 80
-          name: wp
+          name: wordpress
         env:
         - name: WP_DB_NAME
           value: wordpress_db
@@ -35,24 +35,24 @@ spec:
         - name: WP_DB_HOST
           value: mysql
         volumeMounts:
-        - name: wp-storage
-          mountPath: /wp_files
+        - name: wordpress-storage
+          mountPath: /wordpress_files
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: wp
+  name: wordpress
   labels:
-    app: wp
+    app: wordpress
   annotations:
     metallb.universe.tf/allow-shared-ip: abcd
 spec:
   type: LoadBalancer
   loadBalancerIP: MIN_IP  
   selector:
-    app: wp
+    app: wordpress
   ports:
-    - name: wp
+    - name: wordpress
       protocol: TCP
       port: 5050
       targetPort: 80

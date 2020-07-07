@@ -1,7 +1,6 @@
 FROM alpine:latest
 
 RUN apk update && \
-    apk add vim --no-cache && \
     apk add grafana --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --allow-untrusted --no-cache
 
 COPY datasources.yaml /usr/share/grafana/conf/provisioning/datasources/
