@@ -51,6 +51,7 @@ echo "\033[1;35mStarting minikube...\033[0m"
 minikube start
 
 # point this shell to minikube docker-daemon
+#########doesn't seem to be working
 eval $(minikube docker-env)
 
 # edit kube-proxy config settings for metallb
