@@ -31,19 +31,19 @@ else
     echo "\033[1;32mminikube already installed\033[0m";
 fi
 
-which hyperkit > /dev/null 2>&1
-if [ $? != 0 ]; then
-    echo "\033[1;31mhyperkit not installed, I'll install it...\033[0m";
-    brew install hyperkit
-    
-    which hyperkit > /dev/null 2>&1
-    if [ $? != 0 ]; then
-        echo "\033[1;31mhyperkit installation failed, exiting...\033[0m";
-        exit
-    fi
-else
-    echo "\033[1;32mhyperkit already installed\033[0m";
-fi
+#which hyperkit > /dev/null 2>&1
+#if [ $? != 0 ]; then
+#    echo "\033[1;31mhyperkit not installed, I'll install it...\033[0m";
+#    brew install hyperkit
+#    
+#    which hyperkit > /dev/null 2>&1
+#    if [ $? != 0 ]; then
+#        echo "\033[1;31mhyperkit installation failed, exiting...\033[0m";
+#        exit
+#    fi
+#else
+#    echo "\033[1;32mhyperkit already installed\033[0m";
+#fi
 
 which docker > /dev/null 2>&1
 if [ $? != 0 ]; then
