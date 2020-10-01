@@ -1,7 +1,7 @@
 #!bin/bash
         
 # check all packages are installed and install using homebrew if not
-echo "\033[1;31mChecking for necessary packages...\033[0m";
+echo "\033[1;31mChecking for necessary packages...\n\033[0m";
 
 which kubectl > /dev/null 2>&1
 if [ $? != 0 ]; then
@@ -13,6 +13,8 @@ if [ $? != 0 ]; then
         echo "\033[1;31mkubectl installation failed, exiting...\033[0m";
         exit
     fi
+else
+    echo "\033[1;32mkubectl already installed\033[0m";
 fi
 
 which minikube > /dev/null 2>&1
@@ -25,6 +27,8 @@ if [ $? != 0 ]; then
         echo "\033[1;31mminikube installation failed, exiting...\033[0m";
         exit
     fi
+else
+    echo "\033[1;32mminikube already installed\033[0m";
 fi
 
 which hyperkit > /dev/null 2>&1
@@ -37,6 +41,8 @@ if [ $? != 0 ]; then
         echo "\033[1;31mhyperkit installation failed, exiting...\033[0m";
         exit
     fi
+else
+    echo "\033[1;32mhyperkit already installed\033[0m";
 fi
 
 which docker > /dev/null 2>&1
@@ -49,9 +55,12 @@ if [ $? != 0 ]; then
         echo "\033[1;31mdocker installation failed, exiting...\033[0m";
         exit
     fi
+else
+    echo "\033[1;32mdocker already installed\033[0m";
 fi
 
-echo "\033[1;32mInstalled all necessary packages\033[0m";
+echo "\033[1;32m\nAll necessary packages found or installed...\033[0m";
+sleep 1
 
 exit
 
