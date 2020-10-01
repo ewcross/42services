@@ -3,45 +3,52 @@
 # check all packages are installed and install using homebrew if not
 echo "\033[1;31mChecking for necessary packages...\033[0m";
 
-which brew > /dev/null 2>&1
-if [ $? != 0 ]; then
-    echo "\033[1;31mhomebrew not installed, I'll install it...\033[0m";
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-    #"user42" '' | ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-    echo 'eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)' >> /home/user42/.zprofile
-    eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-fi
-
-which brew > /dev/null 2>&1
-if [ $? != 0 ]; then
-    echo "\033[1;31mhomebrew installation failed, exiting...\033[0m";
-    exit
-fi
-
-exit
-
 which kubectl > /dev/null 2>&1
 if [ $? != 0 ]; then
     echo "\033[1;31mkubectl not installed, I'll install it....\033[0m";
-    #brew install kubectl
+    brew install kubectl
+    
+    which kubectl > /dev/null 2>&1
+    if [ $? != 0 ]; then
+        echo "\033[1;31mkubectl installation failed, exiting...\033[0m";
+        exit
+    fi
 fi
 
 which minikube > /dev/null 2>&1
 if [ $? != 0 ]; then
     echo "\033[1;31mminikube not installed, I'll install it...\033[0m";
-    #brew install minikube
+    brew install minikube
+    
+    which minikube > /dev/null 2>&1
+    if [ $? != 0 ]; then
+        echo "\033[1;31mminikube installation failed, exiting...\033[0m";
+        exit
+    fi
 fi
 
 which hyperkit > /dev/null 2>&1
 if [ $? != 0 ]; then
     echo "\033[1;31mhyperkit not installed, I'll install it...\033[0m";
-    #brew install hyperkit
+    brew install hyperkit
+    
+    which hyperkit > /dev/null 2>&1
+    if [ $? != 0 ]; then
+        echo "\033[1;31mhyperkit installation failed, exiting...\033[0m";
+        exit
+    fi
 fi
 
 which docker > /dev/null 2>&1
 if [ $? != 0 ]; then
     echo "\033[1;31mdocker not installed, I'll install it...\033[0m";
-    #brew install docker
+    brew install docker
+    
+    which docker > /dev/null 2>&1
+    if [ $? != 0 ]; then
+        echo "\033[1;31mdocker installation failed, exiting...\033[0m";
+        exit
+    fi
 fi
 
 echo "\033[1;32mInstalled all necessary packages\033[0m";
