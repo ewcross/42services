@@ -90,7 +90,9 @@ sed -i '' "s/MAX_IP/${metallb_max_ip}/g" srcs/yaml_files/metallb.yaml
 sed -i '' "s/MIN_IP/${metallb_min_ip}/g" srcs/containers/nginx/index.html
 # add same ip to nginx.conf to give 301 redirection the correct address
 sed -i '' "s/MIN_IP/${metallb_min_ip}/g" srcs/containers/nginx/nginx.conf
-# add same ip to lighttpd index.html for link to wordpress
+# add same ip to nginx conf file for redirect to wordpress
+sed -i '' "s/MIN_IP/${metallb_min_ip}/g" srcs/containers/wordpress/nginx.conf
+# add same ip to nginx index.html for link to wordpress
 sed -i '' "s/MIN_IP/${metallb_min_ip}/g" srcs/containers/wordpress/index.html
 
 sleep 2;
