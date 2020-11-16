@@ -38,21 +38,37 @@ spec:
         - name: wordpress-storage
           mountPath: /wordpress_files
 ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: wordpress
+#   labels:
+#     app: wordpress
+#   annotations:
+#     metallb.universe.tf/allow-shared-ip: abcd
+# spec:
+#   type: LoadBalancer
+#   loadBalancerIP: MIN_IP  
+#   selector:
+#     app: wordpress
+#   ports:
+#     - name: wordpress
+#       protocol: TCP
+#       port: 5050
+#       targetPort: 80
+
 apiVersion: v1
 kind: Service
 metadata:
   name: wordpress
   labels:
     app: wordpress
-  annotations:
-    metallb.universe.tf/allow-shared-ip: abcd
 spec:
-  type: LoadBalancer
-  loadBalancerIP: MIN_IP  
+  type: NodePort
   selector:
     app: wordpress
   ports:
     - name: wordpress
       protocol: TCP
-      port: 5050
+      port: 80
       targetPort: 80
