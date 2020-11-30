@@ -21,6 +21,8 @@ sed -i '' "s/${metallb_min_ip}/MIN_IP/g" srcs/containers/nginx/index.html
 sed -i '' "s/${metallb_min_ip}/MIN_IP/g" srcs/containers/nginx/nginx.conf
 sed -i '' "s/${metallb_min_ip}/MIN_IP/g" srcs/containers/wordpress/nginx.conf
 sed -i '' "s/${metallb_min_ip}/MIN_IP/g" srcs/containers/wordpress/index.html
+sed -i '' "s/${metallb_min_ip}/MIN_IP/g" srcs/containers/phpmyadmin/nginx.conf
+sed -i '' "s/${metallb_min_ip}/MIN_IP/g" srcs/containers/phpmyadmin/index.html
 
 minikube stop
 minikube delete

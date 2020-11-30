@@ -94,6 +94,10 @@ sed -i '' "s/MIN_IP/${metallb_min_ip}/g" srcs/containers/nginx/nginx.conf
 sed -i '' "s/MIN_IP/${metallb_min_ip}/g" srcs/containers/wordpress/nginx.conf
 # add same ip to nginx index.html for link to wordpress
 sed -i '' "s/MIN_IP/${metallb_min_ip}/g" srcs/containers/wordpress/index.html
+# add same ip to nginx conf file for redirect to wordpress
+sed -i '' "s/MIN_IP/${metallb_min_ip}/g" srcs/containers/phpmyadmin/nginx.conf
+# add same ip to nginx index.html for link to wordpress
+sed -i '' "s/MIN_IP/${metallb_min_ip}/g" srcs/containers/phpmyadmin/index.html
 
 sleep 2;
 
