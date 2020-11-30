@@ -97,30 +97,39 @@ sed -i '' "s/MIN_IP/${metallb_min_ip}/g" srcs/containers/wordpress/index.html
 
 sleep 2;
 
+#********************************************
+
 # build all docker images
 echo "\n\033[1;35mBuilding docker images...\033[0m"
-for dir in srcs/containers/*
-do
-	container=$(basename $dir)
-	echo "\033[1;35mBuilding $container image...\033[0m"
-	docker build -t $container:v1 $dir
-done
+
+# for dir in srcs/containers/*
+# do
+# 	container=$(basename $dir)
+# 	echo "\033[1;35mBuilding $container image...\033[0m"
+# 	docker build -t $container:v1 $dir
+# done
+
+#********************************************
+#********************************************
 
 # apply yaml files
 echo "\n\033[1;35mDeploying services...\033[0m"
-for f in srcs/yaml_files/*
-do
-	if [ -d "$f" ]; then
-		for pv in $f/*
-		do
-			if [ -d "$pv" ]; then
-				continue;
-			fi
-			kubectl apply -f $pv
-		done
-	fi
-	kubectl apply -f $f
-done
+
+# for f in srcs/yaml_files/*
+# do
+# 	if [ -d "$f" ]; then
+# 		for pv in $f/*
+# 		do
+# 			if [ -d "$pv" ]; then
+# 				continue;
+# 			fi
+# 			kubectl apply -f $pv
+# 		done
+# 	fi
+# 	kubectl apply -f $f
+# done
+
+#********************************************
 
 echo "\n\033[1;35mCluster is set up. Go to \033[1;36m$metallb_min_ip\033[1;35m to access services.\033[0m"
 echo "\033[1;35mTo access the kubernetes dashboard, use the command \033[1;36mminikube dashboard\033[1;35m.\033[0m"

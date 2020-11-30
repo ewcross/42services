@@ -1,4 +1,3 @@
-
 function add_admin_acct(){
 
 	$login = 'admin';
