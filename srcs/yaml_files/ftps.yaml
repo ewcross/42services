@@ -23,7 +23,7 @@ spec:
         - name: FTPS_PASSWORD
           value: ftps_user
         - name: IP
-          value: 'MIN_IP'
+          value: '192.168.64.52'
 ---
 apiVersion: v1
 kind: Service
@@ -35,7 +35,7 @@ metadata:
     metallb.universe.tf/allow-shared-ip: abcd
 spec:
   type: LoadBalancer
-  loadBalancerIP: MIN_IP  
+  loadBalancerIP: 192.168.64.52  
   selector:
     app: ftps
   ports:

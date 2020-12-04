@@ -9,4 +9,4 @@ data:
     - name: default
       protocol: layer2
       addresses:
-      - MIN_IP - MAX_IP  
+      - 192.168.64.52 - 192.168.64.67  
