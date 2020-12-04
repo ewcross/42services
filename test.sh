@@ -5,8 +5,16 @@ kubectl delete deployment phpmyadmin
 
 # kubectl delete svc nginx
 # kubectl delete deployment nginx
+
 # kubectl delete svc wordpress
 # kubectl delete deployment wordpress
+# kubectl delete pv wordpress-pv
+# kubectl delete pvc wordpress-pvc
+
+# kubectl delete svc mysql
+# kubectl delete deployment mysql
+# kubectl delete pv mysql-pv
+# kubectl delete pvc mysql-pvc
 
 # docker build -t nginx:v1 srcs/containers/nginx/
 # docker build -t wordpress:v1 srcs/containers/wordpress/

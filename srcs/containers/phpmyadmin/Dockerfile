@@ -42,5 +42,4 @@ EXPOSE 80
 
 # ENTRYPOINT sh setup.sh && php -S 0.0.0.0:5000 -t /www/localhost/phpmyadmin/
 # ENTRYPOINT sh setup.sh && nginx -g "daemon off;"
-# CMD ["sh", "configure_db.sh", "&&", "/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
 ENTRYPOINT sh configure_db.sh && /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
