@@ -18,8 +18,6 @@ spec:
       - name: telegraf
         image: telegraf:v1
         imagePullPolicy: Never
-        #ports:
-        #- containerPort: 4999
         volumeMounts:
         - name: docker-daemon
           mountPath: "/var/run/docker.sock"
@@ -37,10 +35,7 @@ metadata:
   annotations:
     metallb.universe.tf/allow-shared-ip: abcd
 spec:
-  #type: LoadBalancer
-  #loadBalancerIP: MIN_IP  
   selector:
     app: telegraf
   ports:
   - port: 4999
-  #targetPort: 4999

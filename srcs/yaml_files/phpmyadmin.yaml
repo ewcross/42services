@@ -48,5 +48,4 @@ spec:
   ports:
     - name: phpmyadmin
       port: 5000
-      # targetPort: 5000
       targetPort: 80
