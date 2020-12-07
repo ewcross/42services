@@ -51,7 +51,6 @@ echo "\033[1;35mStarting minikube...\033[0m"
 minikube start
 
 # point this shell to minikube docker-daemon
-#########doesn't seem to be working
 eval $(minikube docker-env)
 
 # edit kube-proxy config settings for metallb
@@ -73,8 +72,6 @@ nums=$(echo $minikube_ip | tr "." "\n")
 arr=($nums)
 metallb_min_ip="${arr[0]}.${arr[1]}.${arr[2]}.$((${arr[3]} + 5))"
 metallb_max_ip="${arr[0]}.${arr[1]}.${arr[2]}.$((${arr[3]} + 20))"
-#sed -i '' "s/MIN_IP/${metallb_min_ip}/g" srcs/yaml_files/metallb.yaml
-#sed -i '' "s/MAX_IP/${metallb_max_ip}/g" srcs/yaml_files/metallb.yaml
 
 # put lowest ip in all yaml files so all services share same ip
 for f in srcs/yaml_files/*
@@ -101,39 +98,32 @@ sed -i '' "s/MIN_IP/${metallb_min_ip}/g" srcs/containers/phpmyadmin/index.html
 
 sleep 2;
 
-#********************************************
-
 # build all docker images
 echo "\n\033[1;35mBuilding docker images...\033[0m"
 
-# for dir in srcs/containers/*
-# do
-# 	container=$(basename $dir)
-# 	echo "\033[1;35mBuilding $container image...\033[0m"
-# 	docker build -t $container:v1 $dir
-# done
-
-#********************************************
-#********************************************
+for dir in srcs/containers/*
+do
+	container=$(basename $dir)
+	echo "\033[1;35mBuilding $container image...\033[0m"
+	docker build -t $container:v1 $dir
+done
 
 # apply yaml files
 echo "\n\033[1;35mDeploying services...\033[0m"
 
-# for f in srcs/yaml_files/*
-# do
-# 	if [ -d "$f" ]; then
-# 		for pv in $f/*
-# 		do
-# 			if [ -d "$pv" ]; then
-# 				continue;
-# 			fi
-# 			kubectl apply -f $pv
-# 		done
-# 	fi
-# 	kubectl apply -f $f
-# done
-
-#********************************************
+for f in srcs/yaml_files/*
+do
+	if [ -d "$f" ]; then
+		for pv in $f/*
+		do
+			if [ -d "$pv" ]; then
+				continue;
+			fi
+			kubectl apply -f $pv
+		done
+	fi
+	kubectl apply -f $f
+done
 
 echo "\n\033[1;35mCluster is set up. Go to \033[1;36m$metallb_min_ip\033[1;35m to access services.\033[0m"
 echo "\033[1;35mTo access the kubernetes dashboard, use the command \033[1;36mminikube dashboard\033[1;35m.\033[0m"

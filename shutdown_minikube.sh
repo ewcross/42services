@@ -1,7 +1,8 @@
 #!bin/bash
 
 echo "\033[1;35mRemoving cluster...\033[0m"
-# get minikube ip and use to generate ip pool for metallb (in metallb.yaml)
+
+# get minikube ip to replace with placeholder
 minikube_ip=$(minikube ip)
 nums=$(echo $minikube_ip | tr "." "\n")
 arr=($nums)
