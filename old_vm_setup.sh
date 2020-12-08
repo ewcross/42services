@@ -1,39 +1,68 @@
 #!bin/bash
-
+        
 # check all packages are installed and install using homebrew if not
-echo "\033[1;31mChecking for necessary packages...\033[0m";
-
-# some of the installations may need changing so they happen quietly
-
-#which brew
-#if [ $? != 0 ]; then
-#	echo "\033[1;31mhomebrew not installed, I'll install it...\033[0m";
-#	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-#fi
+echo "\033[1;31mChecking for necessary packages...\n\033[0m";
 
 which kubectl > /dev/null 2>&1
 if [ $? != 0 ]; then
-	echo "\033[1;31mkubectl not installed, I'll install it....\033[0m";
-#	brew install kubectl
+    echo "\033[1;31mkubectl not installed, I'll install it....\033[0m";
+    brew install kubectl
+    
+    which kubectl > /dev/null 2>&1
+    if [ $? != 0 ]; then
+        echo "\033[1;31mkubectl installation failed, exiting...\033[0m";
+        exit
+    fi
+else
+    echo "\033[1;32mkubectl already installed\033[0m";
 fi
 
 which minikube > /dev/null 2>&1
 if [ $? != 0 ]; then
-	echo "\033[1;31mminikube not installed, I'll install it...\033[0m";
-#	brew install minikube
+    echo "\033[1;31mminikube not installed, I'll install it...\033[0m";
+    brew install minikube
+    
+    which minikube > /dev/null 2>&1
+    if [ $? != 0 ]; then
+        echo "\033[1;31mminikube installation failed, exiting...\033[0m";
+        exit
+    fi
+else
+    echo "\033[1;32mminikube already installed\033[0m";
 fi
 
-which virtualbox > /dev/null 2>&1
-if [ $? != 0 ]; then
-	echo "\033[1;31mvirtualbox not installed, I'll install it...\033[0m";
-#	brew install hyperkit
-fi
+#which hyperkit > /dev/null 2>&1
+#if [ $? != 0 ]; then
+#    echo "\033[1;31mhyperkit not installed, I'll install it...\033[0m";
+#    brew install hyperkit
+#    
+#    which hyperkit > /dev/null 2>&1
+#    if [ $? != 0 ]; then
+#        echo "\033[1;31mhyperkit installation failed, exiting...\033[0m";
+#        exit
+#    fi
+#else
+#    echo "\033[1;32mhyperkit already installed\033[0m";
+#fi
 
 which docker > /dev/null 2>&1
 if [ $? != 0 ]; then
-	echo "\033[1;31mdocker not installed, I'll install it...\033[0m";
-	#brew install docker
+    echo "\033[1;31mdocker not installed, I'll install it...\033[0m";
+    brew install docker
+    
+    which docker > /dev/null 2>&1
+    if [ $? != 0 ]; then
+        echo "\033[1;31mdocker installation failed, exiting...\033[0m";
+        exit
+    fi
+else
+    echo "\033[1;32mdocker already installed\033[0m";
 fi
+
+echo "\033[1;32m\nAll necessary packages found or installed...\033[0m";
+sleep 1
+
+exit
 
 echo "\033[1;35mStarting minikube...\033[0m"
 minikube start
@@ -60,6 +89,8 @@ nums=$(echo $minikube_ip | tr "." "\n")
 arr=($nums)
 metallb_min_ip="${arr[0]}.${arr[1]}.${arr[2]}.$((${arr[3]} + 5))"
 metallb_max_ip="${arr[0]}.${arr[1]}.${arr[2]}.$((${arr[3]} + 20))"
+#sed -i '' "s/MIN_IP/${metallb_min_ip}/g" srcs/yaml_files/metallb.yaml
+#sed -i '' "s/MAX_IP/${metallb_max_ip}/g" srcs/yaml_files/metallb.yaml
 
 # put lowest ip in all yaml files so all services share same ip
 for f in srcs/yaml_files/*
@@ -75,20 +106,13 @@ sed -i '' "s/MAX_IP/${metallb_max_ip}/g" srcs/yaml_files/metallb.yaml
 sed -i '' "s/MIN_IP/${metallb_min_ip}/g" srcs/containers/nginx/index.html
 # add same ip to nginx.conf to give 301 redirection the correct address
 sed -i '' "s/MIN_IP/${metallb_min_ip}/g" srcs/containers/nginx/nginx.conf
-# add same ip to nginx conf file for redirect to wordpress
-sed -i '' "s/MIN_IP/${metallb_min_ip}/g" srcs/containers/wordpress/nginx.conf
-# add same ip to nginx index.html for link to wordpress
+# add same ip to lighttpd index.html for link to wordpress
 sed -i '' "s/MIN_IP/${metallb_min_ip}/g" srcs/containers/wordpress/index.html
-# add same ip to nginx conf file for redirect to wordpress
-sed -i '' "s/MIN_IP/${metallb_min_ip}/g" srcs/containers/phpmyadmin/nginx.conf
-# add same ip to nginx index.html for link to wordpress
-sed -i '' "s/MIN_IP/${metallb_min_ip}/g" srcs/containers/phpmyadmin/index.html
 
 sleep 2;
 
 # build all docker images
 echo "\n\033[1;35mBuilding docker images...\033[0m"
-
 for dir in srcs/containers/*
 do
 	container=$(basename $dir)
@@ -98,7 +122,6 @@ done
 
 # apply yaml files
 echo "\n\033[1;35mDeploying services...\033[0m"
-
 for f in srcs/yaml_files/*
 do
 	if [ -d "$f" ]; then
