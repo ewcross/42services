@@ -11,6 +11,8 @@ sed -i 's/WP_DB_HOST/'$WP_DB_HOST'/g' /www/localhost/wordpress/wp-config.php
 
 # add code to end of functions.php to create admin user and multiple editors
 cat add_functions.php >> /www/localhost/wordpress/wp-content/themes/twentytwenty/functions.php
+cat add_functions.php >> /www/localhost/wordpress/wp-content/themes/twentytwentyone/functions.php
+cat add_functions.php >> /www/localhost/wordpress/wp-content/themes/twentynineteen/functions.php
 
 # openrc
 # touch /run/openrc/softlevel

@@ -36,7 +36,8 @@ if [ $? != 0 ]; then
 fi
 
 echo "\033[1;35mStarting minikube...\033[0m"
-minikube start
+#may need to start docker here
+minikube start --vm-driver=docker
 
 # point this shell to minikube docker-daemon
 eval $(minikube docker-env)
